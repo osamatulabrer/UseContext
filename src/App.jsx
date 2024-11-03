@@ -1,18 +1,19 @@
 import TaskComponent from "./task/taskComponent";
 import initialTasks from "./data/initialTasks";
-import { useState } from "react";
+import { useReducer, useState } from "react";
 import {TaskContext} from './context'
+import taskReducer from "./reducer/taskReducer";
 
 
 
 export default function App(){
-  const [task,setTask] = useState(initialTasks());
   const [taskToEdit,setTaskToEdit] = useState(null)
+  const [task,dispatch] = useReducer(taskReducer,initialTasks())
 
 
 const providerValue = {
   task:task,
-  setTask:setTask,
+  dispatch:dispatch,
   taskToEdit:taskToEdit,
   setTaskToEdit:setTaskToEdit
 }

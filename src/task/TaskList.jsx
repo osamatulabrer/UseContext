@@ -3,27 +3,19 @@ import TaskHeader from "./TaskHeader";
 import TaskItem from "./TaskItem";
 import { TaskContext } from "../context";
 
+function TaskList() {
+  const { task } = useContext(TaskContext);
 
-function TaskList(){
-
-    const {task} = useContext(TaskContext)
-  
-
-
-return (
+  return (
     <div className="col-span-7">
-    <TaskHeader/>
-    <ul>
+      <TaskHeader />
+      <ul>
         {task.map(item => (
-           
-                <TaskItem key={item.id} item={item} />
-            
+          <TaskItem key={item.id} item={item} />
         ))}
-        
-    </ul>
+      </ul>
     </div>
-
-    )
+  );
 }
 
 export default TaskList;

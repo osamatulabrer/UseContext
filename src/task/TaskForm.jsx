@@ -1,3 +1,4 @@
+
 import { useContext, useEffect, useState } from "react";
 import { TaskContext } from "../context";
 
@@ -6,39 +7,42 @@ import { TaskContext } from "../context";
 function TaskForm(){
     const [text,setText] = useState('')
 
-    const {task,setTask,taskToEdit,setTaskToEdit} = useContext(TaskContext)
+    const {dispatch,taskToEdit,setTaskToEdit} = useContext(TaskContext)
 
 
     useEffect(()=>{
         if(taskToEdit){
             setText(taskToEdit.text)
-        };[taskToEdit]
-    })
+        }
+  
+        
+    },[taskToEdit])
+   
 
     const handleAdd = () => {
         if (taskToEdit) {
-         
+          
+          dispatch({
+            type:"UPDATED",
+            payload:{
+                ...taskToEdit,
+                text:text
+            }
+          })  
+       
+          
             
-            setTask(task.map(task => {
-                if (task.id === taskToEdit.id) {
-                    return {
-                        ...taskToEdit,
-                        text: text
-                    };
-                } else {
-                    return task;
-                }
-            }));
-            setTaskToEdit(null)
 
         } else {
-            setTask([
-                ...task,
-                {
+       
+            
+            dispatch({
+                type:'ADDED',
+                payload:{
                     id: crypto.randomUUID(),
-                    text: text,
+                     text: text,
                 }
-            ])
+            })
         }
 
         setText('');

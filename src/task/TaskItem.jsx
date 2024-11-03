@@ -5,12 +5,17 @@ import { useContext } from "react"
 import { TaskContext } from "../context"
 
 function TaskItem({item}){
-        const {task,setTask,setTaskToEdit} = useContext(TaskContext)
+        const {dispatch,setTaskToEdit} = useContext(TaskContext)
     const handleDelete = ()=>{
         const isConfirm = confirm('are you sure want to delete it?')
         if(isConfirm){
 
-            setTask(task.filter(t => t.id !== item.id))
+            dispatch({
+                type:"DELETED",
+                payload:item.id,
+                
+            })
+
         }
         
     }
